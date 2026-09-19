@@ -67,7 +67,7 @@ const updateWorkout = async (req, res) => {
             return res.status(400).json({ message: 'Must use a valid workout id to update a workout.' });
         }
         const workoutId = new ObjectId(req.params.id);
-        const workout = {
+        const updateData = {
             title: req.body.title,
             type: req.body.type,
             durationMinutes: Number(req.body.durationMinutes),
@@ -77,7 +77,7 @@ const updateWorkout = async (req, res) => {
             notes: req.body.notes || '',
             updatedAt: new Date().toISOString()
         };
-        const response = await mongodb.getDb().collection('workouts').replaceOne({ _id: workoutId }, workout);
+        const response = await mongodb.getDb().collection('workouts').updateOne({ _id: workoutId },  { $set: updateData });
         if (response.modifiedCount > 0) {
             res.status(204).send();
         } else if (response.matchedCount === 0) {
