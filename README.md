@@ -6,18 +6,10 @@ FEATURES: **MongoDB Integration**: Connects to MongoDB Atlas using custom databa
           **Swagger UI Documentation**: Interactive API testing environment generated via Swagger.
           **Middleware Support**: Custom error handling and input validation setup.
 
-        ## **Project Structure**
-```text
-├── controllers/    # Request handlers and business logic
-├── db/             # Database connection setup
-├── middleware/     # Custom error handling and route protection
-├── routes/         # Express routing definitions
-├── .env.example    # Environment variable template
-├── server.js       # Main application entry point
-└── swagger.js      # Swagger configuration script
-
-   Tech Stack
+  Tech Stack
 Environment: Node.js
 Framework: Express.js
 Database: MongoDB
 Documentation: Swager UI & swagger-autogen.
+
+https://cse341-project2-workout-and-exercise.onrender.com
