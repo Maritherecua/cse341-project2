@@ -37,7 +37,7 @@ passport.use(
             return done(null, profile);
         }
     )
-);
+);  
 
 passport.serializeUser((user, done) => {
     done(null, user);
