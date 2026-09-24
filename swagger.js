@@ -6,7 +6,7 @@ const doc = {
         description: 'CSE 341 Project 2 - Workout Tracker REST API with MongoDB, OAuth, and Validation',
         version: '1.0.0'
     },
-    host: process.env.RENDER_EXTERNAL_HOSTNAME || 'localhost:8080',
+    host: process.env.RENDER_EXTERNAL_HOSTNAME || 'cse341-project2-workout-and-exercise.onrender.com',
     schemes: ['http', 'https']
 };
 

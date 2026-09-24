@@ -1,12 +1,12 @@
 {
   "name": "cse341-project2",
   "version": "1.0.0",
-  "description": "Workout Tracker REST API for CSE 341 Project 2",
+  "description": "CSE 341 Project 2 - Workout Tracker REST API for CSE 341 Project 2",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "swagger": "node swagger.js"
+    "build-swagger": "node swagger.js"
   },
   "keywords": [
     "cse341",
