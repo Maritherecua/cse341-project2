@@ -52,7 +52,7 @@ const createExercise = async (req, res) => {
         if (response.acknowledged) {
             res.status(201).json({ id: response.insertedId, message: 'Exercise created successfully' });
         } else {
-            res.status(500).json(response.error || 'Some error occurred while creating the exercise.');
+            res.status(500).json({ message: 'Some error occurred while creating the exercise.' });
         }
     } catch (err) {
         res.status(500).json({ message: err.message || 'Some error occurred while creating the exercise.' });
@@ -67,7 +67,8 @@ const updateExercise = async (req, res) => {
             return res.status(400).json({ message: 'Must use a valid exercise id to update an exercise.' });
         }
         const exerciseId = new ObjectId(req.params.id);
-        const exercise = {
+        //Explicitly build update payload without_id
+        const updateData = {
             name: req.body.name,
             targetMuscleGroup: req.body.targetMuscleGroup,
             difficulty: req.body.difficulty,
@@ -77,14 +78,14 @@ const updateExercise = async (req, res) => {
             recommendedReps: req.body.recommendedReps ? Number(req.body.recommendedReps) : 10,
             updatedAt: new Date().toISOString()
         };
-        const response = await mongodb.getDb().collection('exercises').replaceOne({ _id: exerciseId }, exercise);
-        if (response.modifiedCount > 0) {
-            res.status(204).send();
-        } else if (response.matchedCount === 0) {
-            res.status(404).json({ message: 'Exercise not found.' });
-        } else {
-            res.status(200).json({ message: 'No changes were made to the exercise.' });
+        const response = await mongodb.getDb().collection('exercises').updateOne({ _id: exerciseId }, { $set: updateData });
+        if (response.matchedCount === 0) {
+            return res.status(404).json({ message: 'Exercise not found.' });
         }
+        if (response.modifiedCount > 0) {
+            return res.status(204).send();
+        } 
+        return res.status(200).json({ message: 'No changes were made to the exercise.' });
     } catch (err) {
         res.status(500).json({ message: err.message || 'Some error occurred while updating the exercise.' });
     }
