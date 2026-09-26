@@ -80,13 +80,13 @@ const updateWorkout = async (req, res) => {
         };
         
         const response = await mongodb.getDb().collection('workouts').updateOne({ _id: workoutId },  { $set: updateData });
-
-        if (response.modifiedCount > 0 || response.matchedCount > 0) {
-            res.status(204).send();
-        } else {   //if (response.matchedCount === 0) {
-            res.status(404).json({ message: 'Workout not found.' });
-        } //else {
-            //res.status(200).json({ message: 'No changes were made to the workout.' });
+        if (response.matchedCount === 0) {
+            return res.status(404).json({ message: 'Workout not found.' });
+        }
+        if (response.modifiedCount  > 0) {
+            return res.status(204).send();
+        } 
+        return res.status(200).json({ message: 'No changes were made to the workout.' });
         
     } catch (err) {
         res.status(500).json({ message: err.message || 'Some error occurred while updating the workout.' });
